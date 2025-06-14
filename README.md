@@ -3,6 +3,9 @@
 
 TravelMate is a full-stack web application that lets users create, manage, and share their dream travel itineraries. It supports secure authentication, profile management, dynamic itinerary creation, and image uploads with Cloudinary.
 
+
+Go to [demo](travelitnerary.netlify.app) and create a Iitnerary.  
+
 ---
 
 ## 🛠️ Tech Stack
