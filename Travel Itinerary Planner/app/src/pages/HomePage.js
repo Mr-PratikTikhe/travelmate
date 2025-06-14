@@ -1,10 +1,13 @@
-// ✅ HomePage.js (fetches real itineraries from MongoDB and displays them)
+
 import React, { useEffect, useState } from 'react';
 import './HomePage.css';
 import heroImage1 from './assets/hero1.png';
 import heroImage2 from './assets/hero2.png';
 import heroImage3 from './assets/hero.png';
 import { Link, useNavigate } from 'react-router-dom';
+const API = process.env.REACT_APP_API_URL;
+fetch(`${API}/auth/register`)
+
 
 function HomePage() {
   const [itineraries, setItineraries] = useState([]);

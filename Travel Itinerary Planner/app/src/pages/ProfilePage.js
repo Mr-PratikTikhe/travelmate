@@ -1,8 +1,11 @@
-// ✅ ProfilePage.js (merged with backend, original UI preserved)
+
 
 import React, { useState, useEffect } from 'react';
 import './ProfilePage.css';
 import { Link } from 'react-router-dom';
+const API = process.env.REACT_APP_API_URL;
+fetch(`${API}/auth/register`)
+
 
 function ProfilePage() {
   const userEmail = localStorage.getItem('userEmail');

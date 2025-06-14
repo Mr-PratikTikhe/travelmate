@@ -1,9 +1,13 @@
-// ✅ CreateItinerary.js (fully working with backend)
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './CreateItinerary.css';
 
+const API = process.env.REACT_APP_API_URL;
+
 function CreateItinerary() {
+  const navigate = useNavigate();
+  const email = localStorage.getItem('userEmail');
+
   const [activities, setActivities] = useState(['']);
   const [formData, setFormData] = useState({
     title: '',
@@ -13,8 +17,6 @@ function CreateItinerary() {
     notes: '',
     photos: []
   });
-  const email = localStorage.getItem('userEmail');
-  const API = 'http://localhost:5000/api/itinerary';
 
   const handleAddActivity = () => {
     setActivities([...activities, '']);
@@ -31,26 +33,33 @@ function CreateItinerary() {
     setFormData({ ...formData, [name]: value });
   };
 
-  const handleFileChange = (e) => {
-    setFormData({ ...formData, photos: Array.from(e.target.files).map(file => file.name) });
+  const handleFileChange = async (e) => {
+    const files = Array.from(e.target.files);
+    const urls = [];
+
+    for (let file of files) {
+      const data = new FormData();
+      data.append('image', file);
+
+      try {
+        const res = await fetch(`${API}/upload/image`, {
+          method: 'POST',
+          body: data
+        });
+
+        const json = await res.json();
+        if (json.url) urls.push(json.url);
+      } catch (err) {
+        console.error('Image upload failed:', err);
+      }
+    }
+
+    setFormData((prev) => ({ ...prev, photos: urls }));
   };
-
-  const handleImageUpload = async (file) => {
-  const formData = new FormData();
-  formData.append('image', file);
-
-  const res = await fetch('http://localhost:5000/api/upload/image', {
-    method: 'POST',
-    body: formData,
-  });
-
-  const data = await res.json();
-  return data.url; // return Cloudinary URL
-};
-
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const itinerary = {
       ...formData,
       destinations: formData.destinations.split(',').map(d => d.trim()),
@@ -58,13 +67,18 @@ function CreateItinerary() {
       createdBy: email
     };
 
-    await fetch(API, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(itinerary)
-    });
+    try {
+      await fetch(`${API}/itinerary`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(itinerary)
+      });
 
-    alert('Itinerary saved!');
+      alert('Itinerary saved!');
+      navigate('/home');
+    } catch (err) {
+      alert('Failed to save itinerary.');
+    }
   };
 
   return (
@@ -110,7 +124,7 @@ function CreateItinerary() {
           </button>
 
           <label>Travel Notes & Special Memories</label>
-          <textarea name="notes" value={formData.notes} onChange={handleInputChange} placeholder="Share your thoughts, special requirements, or memorable moments you want to capture..."></textarea>
+          <textarea name="notes" value={formData.notes} onChange={handleInputChange} placeholder="Share your thoughts or memories..."></textarea>
 
           <label>Upload Your Journey Photos</label>
           <input type="file" multiple accept="image/*" onChange={handleFileChange} />

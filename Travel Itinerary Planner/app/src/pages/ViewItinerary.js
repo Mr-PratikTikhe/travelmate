@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, useParams, useNavigate } from 'react-router-dom';
 import './ViewItinerary.css';
+const API = process.env.REACT_APP_API_URL;
+fetch(`${API}/auth/register`)
+
 
 function ViewItinerary() {
   const { id } = useParams();

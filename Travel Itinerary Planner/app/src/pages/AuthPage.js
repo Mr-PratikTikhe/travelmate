@@ -1,8 +1,11 @@
-// ✅ AuthPage.js (Original UI + Correct Redirect Path)
+
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Auth.css';
+const API = process.env.REACT_APP_API_URL;
+fetch(`${API}/auth/register`)
+
 
 function AuthPage() {
   const [isLogin, setIsLogin] = useState(true);
