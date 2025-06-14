@@ -6,20 +6,25 @@ require('dotenv').config();
 // Import route files
 const authRoutes = require('./routes/auth');
 const itineraryRoutes = require('./routes/itinerary');
-const uploadRoutes = require('./routes/uplod'); // ✅ Upload route
+const uploadRoutes = require('./routes/uplod');
 
 const app = express();
 
-// Middlewares
-app.use(cors());
+// ✅ CORS configuration to allow Netlify frontend
+app.use(cors({
+  origin: ['https://travelitnerary.netlify.app'], // your live frontend URL
+  credentials: true
+}));
+
+// Middleware to parse JSON requests
 app.use(express.json());
 
-// API Routes
+// Register API Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/itinerary', itineraryRoutes);
-app.use('/api/upload', uploadRoutes); // ✅ Upload route registered
+app.use('/api/upload', uploadRoutes);
 
-// Connect MongoDB and start server
+// MongoDB Connection + Server Start
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
