@@ -1,0 +1,650 @@
+:root {
+  --light-sage: #e7efc7;
+  --sage-green: #aec8a4;
+  --olive-brown: #8a784e;
+  --dark-olive: #3b3b1a;
+  --font-main: "Playfair Display", serif;
+  --font-secondary: "Inter", sans-serif;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  line-height: 1.6;
+  color: var(--dark-olive);
+  background: linear-gradient(135deg, var(--light-sage), var(--sage-green));
+  min-height: 100vh;
+}
+
+.view-itinerary {
+  background: linear-gradient(135deg, var(--light-sage), var(--sage-green));
+  min-height: 100vh;
+  position: relative;
+}
+
+.view-itinerary::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(59,59,26,0.1)"/><circle cx="80" cy="80" r="2" fill="rgba(59,59,26,0.1)"/><circle cx="40" cy="60" r="1.5" fill="rgba(138,120,78,0.1)"/></svg>');
+  opacity: 0.3;
+  z-index: 0;
+}
+
+.navbar {
+  background: linear-gradient(135deg, var(--dark-olive), var(--olive-brown));
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  box-shadow: 0 4px 15px rgba(59, 59, 26, 0.3);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  font-size: 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+  margin: 0;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: 25px;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid transparent;
+  display: inline-block;
+}
+
+.nav-links a::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s;
+  z-index: 1;
+}
+
+.nav-links a:hover::before {
+  left: 100%;
+}
+
+.nav-links a:hover {
+  background: linear-gradient(135deg, var(--sage-green), var(--light-sage));
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  color: var(--dark-olive);
+  font-weight: bold;
+}
+
+.nav-links a:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.itinerary-details {
+  max-width: 1000px;
+  margin: 3rem auto;
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(59, 59, 26, 0.3);
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.itinerary-details::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, var(--olive-brown), var(--sage-green));
+}
+
+.itinerary-details::after {
+  content: "";
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(174, 200, 164, 0.05),
+    transparent
+  );
+  transform: rotate(45deg);
+  transition: all 0.6s ease;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.itinerary-details:hover::after {
+  opacity: 1;
+  top: -10%;
+  right: -10%;
+}
+
+.itinerary-details h2 {
+  color: var(--dark-olive);
+  margin-bottom: 1rem;
+  font-size: 2.5rem;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+  background: linear-gradient(45deg, var(--dark-olive), var(--olive-brown));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.itinerary-header {
+  background: linear-gradient(135deg, var(--light-sage), var(--sage-green));
+  padding: 2rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  box-shadow: 0 8px 20px rgba(59, 59, 26, 0.1);
+  position: relative;
+  z-index: 1;
+}
+
+.itinerary-header p {
+  font-size: 1.2rem;
+  color: var(--dark-olive);
+  margin-bottom: 0.8rem;
+  font-weight: 600;
+}
+
+.itinerary-header strong {
+  color: var(--olive-brown);
+  font-weight: bold;
+}
+
+.timeline {
+  background: rgba(231, 239, 199, 0.3);
+  padding: 2rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  border-left: 5px solid var(--sage-green);
+  position: relative;
+  z-index: 1;
+}
+
+.timeline h3 {
+  color: var(--dark-olive);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timeline h3::before {
+  content: "🗺️";
+  font-size: 1.5rem;
+}
+
+.timeline ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.timeline li {
+  background: white;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(59, 59, 26, 0.1);
+  border-left: 4px solid var(--olive-brown);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.timeline li:hover {
+  transform: translateX(10px);
+  box-shadow: 0 6px 15px rgba(59, 59, 26, 0.2);
+}
+
+.timeline li::before {
+  content: "✨";
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: var(--sage-green);
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.notes {
+  background: rgba(174, 200, 164, 0.2);
+  padding: 2rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  border-left: 5px solid var(--olive-brown);
+  position: relative;
+  z-index: 1;
+}
+
+.notes h3 {
+  color: var(--dark-olive);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.notes h3::before {
+  content: "📝";
+  font-size: 1.5rem;
+}
+
+.notes p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--olive-brown);
+}
+
+.photos {
+  background: rgba(138, 120, 78, 0.1);
+  padding: 2rem;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+  border-left: 5px solid var(--dark-olive);
+  position: relative;
+  z-index: 1;
+}
+
+.photos h3 {
+  color: var(--dark-olive);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.photos h3::before {
+  content: "📸";
+  font-size: 1.5rem;
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.photo-grid img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(59, 59, 26, 0.2);
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.photo-grid img:hover {
+  transform: scale(1.05) translateY(-5px);
+  box-shadow: 0 15px 30px rgba(59, 59, 26, 0.3);
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+  position: relative;
+  z-index: 1;
+}
+
+.actions button {
+  padding: 1rem 2rem;
+  border: none;
+  font-weight: bold;
+  border-radius: 25px;
+  cursor: pointer;
+  color: white;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+}
+
+.actions button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.actions button:hover::before {
+  left: 100%;
+}
+
+.actions button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.edit-button {
+  background: linear-gradient(135deg, var(--sage-green), var(--olive-brown));
+}
+
+.delete-button {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+}
+
+.share-collab-section {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+.share-button,
+.collab-button {
+  background: linear-gradient(135deg, var(--light-sage), var(--sage-green));
+  color: var(--dark-olive);
+  border: 2px solid var(--olive-brown);
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1rem;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 6px 15px rgba(138, 120, 78, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.share-button::before,
+.collab-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  transition: left 0.5s;
+}
+
+.share-button:hover::before,
+.collab-button:hover::before {
+  left: 100%;
+}
+
+.share-button:hover,
+.collab-button:hover {
+  background: linear-gradient(135deg, var(--olive-brown), var(--dark-olive));
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(138, 120, 78, 0.4);
+}
+
+.share-button::after {
+  content: "🔗";
+  font-size: 1.2rem;
+}
+
+.collab-button::after {
+  content: "👥";
+  font-size: 1.2rem;
+}
+
+/* Collaboration Modal Styles */
+.collab-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(59, 59, 26, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.collab-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.collab-modal-content {
+  background: white;
+  padding: 3rem;
+  border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
+}
+
+.collab-modal.active .collab-modal-content {
+  transform: scale(1);
+}
+
+.collab-modal h3 {
+  color: var(--dark-olive);
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+.collab-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.collab-form input {
+  padding: 1rem;
+  border: 2px solid var(--sage-green);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.collab-form input:focus {
+  outline: none;
+  border-color: var(--olive-brown);
+  box-shadow: 0 0 15px rgba(138, 120, 78, 0.3);
+}
+
+.collab-form-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.collab-send-btn,
+.collab-cancel-btn {
+  flex: 1;
+  padding: 1rem;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.collab-send-btn {
+  background: linear-gradient(135deg, var(--olive-brown), var(--dark-olive));
+  color: white;
+}
+
+.collab-cancel-btn {
+  background: #e0e0e0;
+  color: #666;
+}
+
+.collab-send-btn:hover,
+.collab-cancel-btn:hover {
+  transform: translateY(-2px);
+}
+
+.footer {
+  background: linear-gradient(135deg, var(--dark-olive), var(--olive-brown));
+  color: white;
+  text-align: center;
+  padding: 2rem;
+  box-shadow: 0 -4px 15px rgba(59, 59, 26, 0.3);
+  margin-top: 3rem;
+}
+
+.footer p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Success Message */
+.success-message {
+  background: linear-gradient(135deg, #27ae60, #2ecc71);
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+  margin-top: 1rem;
+  text-align: center;
+  font-weight: bold;
+  opacity: 0;
+  transform: translateY(-20px);
+  transition: all 0.3s ease;
+}
+
+.success-message.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .nav-links a {
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+  }
+
+  .itinerary-details {
+    margin: 2rem 1rem;
+    padding: 2rem;
+  }
+
+  .itinerary-details h2 {
+    font-size: 2rem;
+  }
+
+  .actions,
+  .share-collab-section {
+    flex-direction: column;
+  }
+
+  .photo-grid {
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .itinerary-details {
+    margin: 1rem 0.5rem;
+    padding: 1.5rem;
+  }
+
+  .itinerary-details h2 {
+    font-size: 1.8rem;
+  }
+
+  .timeline,
+  .notes,
+  .photos {
+    padding: 1.5rem;
+  }
+
+  .collab-modal-content {
+    padding: 2rem;
+  }
+}
