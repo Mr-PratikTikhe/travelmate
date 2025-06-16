@@ -164,13 +164,13 @@ Frontend runs on [http://localhost:3000](http://localhost:3000)
 
 ### Frontend (React)
 
-* Host on **Netlify** or **Vercel**
+* Host on **Netlify** 
 * Set `REACT_APP_API_URL` if needed in `.env`
 
 ### Backend (Express)
 
-* Host on **Vercel**
-* Add environment variables (MongoDB URI & Cloudinary keys) in Vercel → Project → Settings → Environment Variables
+* Host on **Render**
+* Add environment variables (MongoDB URI & Cloudinary keys) in Render → Project → Settings → Environment Variables
 
 ---
 
