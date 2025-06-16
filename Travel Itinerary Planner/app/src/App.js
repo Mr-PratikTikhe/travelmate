@@ -9,8 +9,8 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<AuthPage />} />           
-        <Route path="/home" element={<HomePage />} />        
+        <Route path="/" element={<HomePage />} />        
+        <Route path="/auth" element={<AuthPage />} />           
         <Route path="/create" element={<CreateItinerary />} />
         <Route path="/view/:id" element={<ViewItinerary />} />
         <Route path="/profile" element={<ProfilePage />} />
