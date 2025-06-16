@@ -75,7 +75,7 @@ function CreateItinerary() {
       });
 
       alert('Itinerary saved!');
-      navigate('/home');
+      navigate('/');
     } catch (err) {
       alert('Failed to save itinerary.');
     }
@@ -86,10 +86,10 @@ function CreateItinerary() {
       <nav className="navbar">
         <div className="logo">TravelMate</div>
         <ul className="nav-links">
-          <li><Link to="/home">Home</Link></li>
+          <li><Link to="/">Home</Link></li>
           <li><Link to="/create">Create New</Link></li>
           <li><Link to="/profile">Profile</Link></li>
-          <li><Link to="/">Logout</Link></li>
+          <li><Link to="/auth">Logout</Link></li>
         </ul>
       </nav>
 
