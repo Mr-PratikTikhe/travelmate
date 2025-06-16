@@ -115,7 +115,7 @@ function AuthPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data);
       localStorage.setItem('userEmail', data.email);
-      navigate('/home'); // ✅ Redirect to HomePage
+      navigate('/'); // ✅ Redirect to HomePage
     } catch (err) {
       setMessage({ text: err.message, type: 'error' });
     } finally {
